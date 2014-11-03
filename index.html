@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html ng-app="TaskList">
+  <head>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div ng-controller="TaskController as task">
+      <h1> {{ task.entry.name }} </h1>
+      <h2> {{ task.entry.creationDate }} </h2>
+      <p> {{ task.entry.description }} </p>
+      <button ng-hide="task.entry.completed">Save</button>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+  </body>
+</html>

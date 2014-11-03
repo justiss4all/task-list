@@ -1,0 +1,4 @@
+1. hapi.js
+2. AngularJS
+3. JS logic/ timer f(x)
+4. Persistance layer (orchestrate or firebase)
