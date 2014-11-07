@@ -5,6 +5,19 @@
     this.entries = tasks;
   });
 
+  app.controller('ListController', function(){
+    this.list = 1;
+
+    this.setView = function(View) {
+      this.list = View;
+    };
+
+    this.isSet = function(checkView){
+      return this.list === checkView;
+    };
+  });
+
+
   var tasks = [
     {
       name: 'First task',
@@ -16,7 +29,7 @@
     {
       name: 'Second task',
       description: 'This is our second task for wireframing',
-      creationDate: '1288323623006',
+      creationDate: '128832362300',
       completionDate: null,
       completed: false,
     },
