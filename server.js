@@ -5,28 +5,15 @@ var server = new Hapi.Server(3000);
 
 server.route({
   method: 'GET',
-  path: '/',
-  handler: function(request, reply){
-    reply('Hello!');
+  path: '/{path*}',
+  handler: {
+    directory: {
+      path: './',
+      index: true
+    }
   }
 });
 
-server.route({
-  method: ['PUT', 'POST'],
-  path: '/',
-  handler: function(request, reply){
-    reply('I did something!');
-  }
-});
-
-
-server.route({
-  method:'GET',
-  path:'/hello/{user}',
-  handler: function (request, reply) {
-    reply('Hello, ' + encodeURIComponent(request.params.user) + '!');
-  }
-});
 
 server.pack.register(Good, function(err) {
   if(err) {

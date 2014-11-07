@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html ng-app="TaskList">
+<html data-ng-app="TaskList">
   <head>
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.min.js"></script>
+    <script src="/javascripts/app.js"></script>
   </head>
   <header>
     <h1 class="text-center">Self-destructing Task List</h1>
@@ -10,41 +13,8 @@
   <body class="container" ng-controller="TaskController as taskCtrl">
 
     <!-- List container -->
-    <section ng-controller="ListController as list">
-      <div class="btn-group btn-group-justified">
-        <div class="btn-group" ng-class="{ active: panel.isSet(1) }">
-          <button type="button" class="btn btn-default btn-lg" ng-click="list.setView(1)">Open</button>
-        </div>
-        <div class="btn-group" ng-class="{ active: panel.isSet(2) }">
-          <button type="button" class="btn btn-default btn-lg" ng-click="list.setView(2)">Expired</button>
-        </div>
-        <div class="btn-group" ng-class="{ active: panel.isSet(3) }">
-          <button type="button" class="btn btn-default btn-lg" ng-click="list.setView(3)">Closed</button>
-        </div>
-      </div>
-    <div class="list-group" ng-show="list.isSet(1)">
-      <div class="list-group-item" ng-repeat="entry in taskCtrl.entries">
-        <h1> Open Tasks </h1>
-        <h3> {{entry.name}} </h3>
-        <button ng-hide="entry.completed">Save</button>
-      </div>
-    </div>
-    <div class="list-group" ng-show="list.isSet(2)">
-      <div class="list-group-item" ng-repeat="entry in taskCtrl.entries">
-        <h1> Expired Tasks </h1>
-        <h3> {{entry.name}} </h3>
-        <button ng-hide="entry.completed">Save</button>
-      </div>
-    </div>
-    <div class="list-group" ng-show="list.isSet(3)">
-      <div class="list-group-item" ng-repeat="entry in taskCtrl.entries">
-        <h1> Closed Tasks </h1>
-        <h3> {{entry.name}} </h3>
-        <button ng-hide="entry.completed">Save</button>
-      </div>
-    </div>
-  </section>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
-    <script type="text/javascript" src="app.js"></script>
+    <list-views></list-views>
+
+
   </body>
 </html>

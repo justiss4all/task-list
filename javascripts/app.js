@@ -6,14 +6,26 @@
   });
 
   app.controller('ListController', function(){
-    this.list = 1;
 
-    this.setView = function(View) {
-      this.list = View;
-    };
+  });
 
-    this.isSet = function(checkView){
-      return this.list === checkView;
+  app.directive('listViews', function(){
+    return {
+      restrict: 'E',
+      templateUrl: 'list-views.html',
+      controller: function(){
+        this.list = 1;
+
+        this.setView = function(View) {
+          this.list = View;
+        };
+
+        this.isSet = function(checkView){
+          return this.list === checkView;
+        };
+
+      },
+      controllerAs: 'list',
     };
   });
 
