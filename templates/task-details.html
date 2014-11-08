@@ -1,4 +1,5 @@
 <li class="list-group-item" ng-repeat="task in tasks">
   <h2>{{ task.name }}</h2>
+  <h4>{{ task.creationDate | date }}</h4>
   <p>{{ task.description }}</p>
 </li>
