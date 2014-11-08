@@ -1,36 +1,38 @@
 (function() {
   var app = angular.module('TaskList', []);
 
-  app.controller('TaskController', function(){
-    this.entries = tasks;
-  });
+  // Main Controller for rendering list of tasks
+  app.controller('ListController',['$scope', function($scope) {
 
-  app.controller('ListController', function(){
+    $scope.tasks = entries;
 
-  });
+    $scope.view = 1;
 
-  app.directive('listViews', function(){
+    $scope.setView = function(setView) {
+      $scope.view = setView;
+      console.log(setView);
+    };
+
+    $scope.isSet = function(checkView){
+      return $scope.view === checkView;
+    };
+    
+
+  }]);
+
+  app.directive('taskDetails', function(){
     return {
       restrict: 'E',
-      templateUrl: 'list-views.html',
+      templateUrl: '/templates/task-details.html',
       controller: function(){
-        this.list = 1;
-
-        this.setView = function(View) {
-          this.list = View;
-        };
-
-        this.isSet = function(checkView){
-          return this.list === checkView;
-        };
-
+        // this controller will manage individual task f(x)'s
       },
-      controllerAs: 'list',
+      controllerAs: 'taskCtrl',
     };
   });
 
 
-  var tasks = [
+  var entries = [
     {
       name: 'First task',
       description: 'This is our first task for wireframing',
