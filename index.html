@@ -1,33 +1,60 @@
 <!DOCTYPE html>
 <html data-ng-app="TaskList">
   <head>
+    <title>Self-Destructing Task List with Firebase</title>
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.min.js"></script>
-    <script src="/javascripts/app.js"></script>
+    <link rel="stylesheet" href="css/task-list.css">
   </head>
   <header>
     <h1 class="text-center">Self-destructing Task List</h1>
-    <h2 class="text-center">- an AngularJS app -</h2>
+    <h4 class="text-center">- An AngularJS App -</h4>
   </header>
   <body class="container" ng-controller="ListController">
-    <!-- Button Group -->
-    <div class="btn-group btn-group-justified">
-      <div class="btn-group">
-        <button type="button" class="btn btn-default btn-lg" ng-class="{ active: setView(1) }" ng-click="listTasks('Open')">Open</button>
-      </div>
-      <div class="btn-group">
-        <button type="button" class="btn btn-default btn-lg" ng-class="{ active: setView(2) }" ng-click="listTasks('Expired')">Expired</button>
-      </div>
-      <div class="btn-group">
-        <button type="button" class="btn btn-default btn-lg" ng-class="{ active: setView(3) }" ng-click="listTasks('Closed')">Closed</button>
-      </div>
+    <table class="table edit">
+    <thead>
+      <tr>
+        <th>Task</th>
+        <th>Notes</th>
+        <th>Created On</th>
+        <th>Days Open</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="task in tasks | filter:{completed:false}">
+        <td><input type="text" ng-model="task.name" ng-blur="updateTask(task)"/></td>
+        <td><input type="text" ng-model="task.description" ng-blur="updateTask(task)"/></td>
+        <td><input type="text" ng-model="task.creationDate" ng-blur="updateTask(task)"/></td>
+        <td>4</td>
+        <td>
+          <a href="#" ng-model="task.completed" ng-click="task.completed = true; updateTask(task)">
+            <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+    </table>
+
+    <div class="well">
+      <h4>Add Task</h4>
+
+      <form class="form-inline" role="form">
+        <div class="form-group">
+          <input type="text" class="form-control" ng-model="newTask.name" placeholder="Add a Task" autofocus/>
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" ng-model="newTask.description" placeholder="Add a Note"/>
+        </div>
+        <div class="form-group">
+          <input type="date" class="form-control" ng-model="newTask.creationDate" placeholder="Due Date"/>
+        </div>
+        <button type="submit" class="btn btn-default" ng-click="addTask()">Add</button>
+      </form>
     </div>
-    <!-- Task List Section -->
-    <section>
-      <ul class="list-group">
-        <task-details></task-details>
-      </ul>
-    </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+    <script src="https://cdn.firebase.com/js/client/1.0.21/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/0.8.2/angularfire.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.3/moment.min.js"></script>
+    <script src="/javascripts/app.js"></script>
   </body>
 </html>
