@@ -42,7 +42,9 @@
   // Filter for determining days left
   app.filter('countdown', function() {
     return function(expirationDate) {
-
+      var a = moment(expirationDate);
+      var b = moment();
+      return a.diff(b, 'days');
     };
   });
 
