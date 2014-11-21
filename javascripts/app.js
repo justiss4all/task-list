@@ -14,6 +14,13 @@
 
       $scope.tasks = TasksService.getTasks();
 
+      $scope.currentState = "Open";
+
+      $scope.setState = function(state) {
+        $scope.currentState = state;
+        
+      }
+
       $scope.filterTask = function() {
         TasksService.filterTasks();
       };
@@ -31,13 +38,40 @@
         TasksService.removeTask(task);
       }
 
-      // Cycle through tasks to check expiration date
+      // Cycle through tasks to check expiration date => add stop with view changes
       $interval(function(){
           $scope.filterTask();
       }, 9000);
 
 
   }]);
+
+  // Filter for showing different states (open, closed, expired)
+  app.filter('taskFilter', function() {
+    return function(tasks, currentState) {
+      var taskList = [];
+      if(currentState === "Open"){
+        angular.forEach(tasks, function(task) {
+          if(angular.equals(task.completed, false) && angular.equals(task.expired, false)){
+            taskList.push(task);
+          }
+        });
+      } else if(currentState === "Closed"){
+        angular.forEach(tasks, function(task) {
+          if(angular.equals(task.completed, true)){
+            taskList.push(task);
+          }
+        });
+      } else if(currentState === "Expired"){
+        angular.forEach(tasks, function(task) {
+          if(angular.equals(task.expired, true)){
+            taskList.push(task);
+          }
+        });
+      }
+      return taskList;
+    }
+  });
 
   // Filter for determining days left
   app.filter('countdown', function() {
@@ -92,8 +126,3 @@
       };
   }]);
 })();
-
-/* Refactoring ToDo:
--- remove removeTask if not needed
-
-*/

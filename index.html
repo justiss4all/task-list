@@ -5,48 +5,63 @@
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/task-list.css">
   </head>
-  <header>
-    <h1 class="text-center">Self-destructing Task List</h1>
-    <h4 class="text-center">- An AngularJS App -</h4>
-  </header>
-  <body class="container" ng-controller="ListController">
-    <table class="table edit">
-    <thead>
-      <tr>
-        <th>Task</th>
-        <th>Notes</th>
-        <th>Created On</th>
-        <th>Expires In</th>
-        <th>Complete</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="task in tasks | filter:{completed:false} | filter:{expired:false}">
-        <td><input type="text" ng-model="task.name" ng-blur="updateTask(task)"/></td>
-        <td><input type="text" ng-model="task.description" ng-blur="updateTask(task)"/></td>
-        <td>{{task.creationDate}}</td>
-        <td>{{task.expirationDate | countdown}} days</td>
-        <td>
-          <a href="#" ng-model="task.completed" ng-click="task.completed = true; updateTask(task)">
-            <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
-          </a>
-        </td>
-      </tr>
-    </tbody>
-    </table>
-
-    <div class="well">
-      <h4>Add Task</h4>
-
-      <form class="form-inline" role="form">
-        <div class="form-group">
-          <input type="text" class="form-control" ng-model="newTask.name" placeholder="Add a Task" autofocus/>
+  <body ng-controller="ListController">
+      <!-- Add Task -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="panel panel-primary">
+            <div class="panel-heading">Add Task</div>
+            <div class="panel-body">
+              <form class="form" role="form">
+                <div class="form-group">
+                  <input type="text" class="form-control" ng-model="newTask.name" placeholder="Add a Task" autofocus/>
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" ng-model="newTask.description" placeholder="Add a Note"/>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" ng-click="addTask()">Add</button>
+              </form>
+              <hr />
+              <div class="nav nav-pills">
+                <li role="presentation" ng-class="{ active: currentState === 'Open'}" ng-click="setState('Open')"><a href="#">Open</a></li>
+                <li role="presentation" ng-class="{ active: currentState === 'Closed'}" ng-click="setState('Closed')"><a href="#">Closed</a></li>
+                <li role="presentation" ng-class="{ active: currentState === 'Expired'}" ng-click="setState('Expired')"><a href="#">Expired</a></li>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <input type="text" class="form-control" ng-model="newTask.description" placeholder="Add a Note"/>
+        <div class="col-md-9">
+          <!-- Task Table -->
+          <div class="panel panel-primary">
+            <div class="panel-heading">{{currentState}} Tasks</div>
+            <table class="table table-bordered edit">
+              <thead>
+                <tr>
+                  <th>Task</th>
+                  <th>Notes</th>
+                  <th>Created On</th>
+                  <th>Expires In</th>
+                  <th>Complete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="task in filtered = (tasks | taskFilter: currentState)">
+                  <td><input type="text" ng-model="task.name" ng-blur="updateTask(task)"/></td>
+                  <td><input type="text" ng-model="task.description" ng-blur="updateTask(task)"/></td>
+                  <td>{{task.creationDate}}</td>
+                  <td>{{task.expirationDate | countdown}} days</td>
+                  <td>
+                    <a href="#" ng-model="task.completed" ng-click="task.completed = true; updateTask(task)">
+                      <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-        <button type="submit" class="btn btn-default" ng-click="addTask()">Add</button>
-      </form>
+      </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
     <script src="https://cdn.firebase.com/js/client/1.0.21/firebase.js"></script>
