@@ -11,7 +11,7 @@
       <div class="row">
         <div class="col-md-3">
           <div class="panel panel-primary">
-            <div class="panel-heading">Add Task</div>
+            <div class="panel-heading">New Task</div>
             <div class="panel-body">
               <form class="form" role="form">
                 <div class="form-group">
@@ -20,13 +20,13 @@
                 <div class="form-group">
                   <input type="text" class="form-control" ng-model="newTask.description" placeholder="Add a Note"/>
                 </div>
-                <button type="submit" class="btn btn-primary btn-block" ng-click="addTask()">Add</button>
+                <button type="submit" class="btn btn-primary btn-block" ng-click="addTask()">Submit</button>
               </form>
               <hr />
               <div class="nav nav-pills">
-                <li role="presentation" ng-class="{ active: currentState === 'Open'}" ng-click="setState('Open')"><a href="#">Open</a></li>
-                <li role="presentation" ng-class="{ active: currentState === 'Closed'}" ng-click="setState('Closed')"><a href="#">Closed</a></li>
-                <li role="presentation" ng-class="{ active: currentState === 'Expired'}" ng-click="setState('Expired')"><a href="#">Expired</a></li>
+                <li role="presentation" ng-class="{ active: isSet('Open') }" ng-click="setState('Open')"><a href="#">Open</a></li>
+                <li role="presentation" ng-class="{ active: isSet('Closed') }" ng-click="setState('Closed')"><a href="#">Closed</a></li>
+                <li role="presentation" ng-class="{ active: isSet('Expired') }" ng-click="setState('Expired')"><a href="#">Expired</a></li>
               </div>
             </div>
           </div>
@@ -42,18 +42,18 @@
                   <th>Notes</th>
                   <th>Created On</th>
                   <th>Expires In</th>
-                  <th>Complete</th>
+                  <th>{{stateHeader}}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr ng-repeat="task in filtered = (tasks | taskFilter: currentState)">
                   <td><input type="text" ng-model="task.name" ng-blur="updateTask(task)"/></td>
                   <td><input type="text" ng-model="task.description" ng-blur="updateTask(task)"/></td>
-                  <td>{{task.creationDate}}</td>
-                  <td>{{task.expirationDate | countdown}} days</td>
-                  <td>
+                  <td align="center">{{task.creationDate}}</td>
+                  <td align="center">{{task.expirationDate | countdown}} days</td>
+                  <td align="center" ng-class="stateClass">
                     <a href="#" ng-model="task.completed" ng-click="task.completed = true; updateTask(task)">
-                      <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+                      <span ng-class="task.completed ? 'glyphicon glyphicon-ok' : 'glyphicon glyphicon-remove'" aria-hidden="true"></span>
                     </a>
                   </td>
                 </tr>

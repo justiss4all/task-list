@@ -16,10 +16,29 @@
 
       $scope.currentState = "Open";
 
+      $scope.stateClass = "";
+
+      $scope.stateHeader = "Close";
+
       $scope.setState = function(state) {
         $scope.currentState = state;
-        
-      }
+        if(state === "Closed"){
+          $scope.stateHeader = "Closed";
+          $scope.stateClass = "bg-success";
+        } else if(state === "Expired"){
+          $scope.stateHeader = "Expired";
+          $scope.stateClass = "bg-danger";
+        } else {
+          $scope.stateHeader = "Close"; 
+          $scope.stateClass = "";
+        }
+      };
+
+      $scope.isSet = function(state) {
+        if(state === $scope.currentState){
+          return true;
+        }
+      };
 
       $scope.filterTask = function() {
         TasksService.filterTasks();
@@ -32,11 +51,11 @@
 
       $scope.updateTask = function(task) {
         TasksService.updateTask(task);
-      }
+      };
 
       $scope.removeTask = function(task) {
         TasksService.removeTask(task);
-      }
+      };
 
       // Cycle through tasks to check expiration date => add stop with view changes
       $interval(function(){
@@ -64,7 +83,7 @@
         });
       } else if(currentState === "Expired"){
         angular.forEach(tasks, function(task) {
-          if(angular.equals(task.expired, true)){
+          if(angular.equals(task.expired, true) && angular.equals(task.completed, false)){
             taskList.push(task);
           }
         });
