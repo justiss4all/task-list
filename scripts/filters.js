@@ -30,7 +30,7 @@
         });
       }
       return taskList;
-    }
+    }; 
   }
 
   function countdown() {
