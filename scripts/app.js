@@ -1,9 +1,10 @@
-(function() {
-  var app = angular.module('TaskList',
-  [
-    'firebase',
-    'task-controllers',
-    'task-services',
-    'task-filters']);
+(function () {
 
+  angular
+        .module('TaskList', [
+          'firebase',
+          'task-controllers',
+          'task-services',
+          'task-filters'
+        ]);
 })();

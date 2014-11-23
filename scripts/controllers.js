@@ -1,7 +1,13 @@
-(function(){
-  var app = angular.module('task-controllers', []);
+(function () {
+  'use strict';
 
-  app.controller('ListController',['$scope', '$interval', 'TasksService', function ($scope, $interval, TasksService) {
+  angular
+      .module('task-controllers', [])
+      .controller('ListController', ListController);
+
+  ListController.$inject = ['$scope', '$interval', 'TasksService'];
+
+  function ListController($scope, $interval, TasksService) {
     $scope.newTask = {
       name: '',
       description: '',
@@ -21,10 +27,10 @@
 
     $scope.setState = function(state) {
       $scope.currentState = state;
-      if(state === "Closed"){
+      if ( state === "Closed" ) {
         $scope.stateHeader = "Closed";
         $scope.stateClass = "bg-success";
-      } else if(state === "Expired"){
+      } else if ( state === "Expired" ){
         $scope.stateHeader = "Expired";
         $scope.stateClass = "bg-danger";
       } else {
@@ -34,7 +40,7 @@
     };
 
     $scope.isSet = function(state) {
-      if(state === $scope.currentState){
+      if ( state === $scope.currentState ) {
         return true;
       }
     };
@@ -56,11 +62,11 @@
       TasksService.removeTask(task);
     };
 
-    // Cycle through tasks to check expiration date => add stop with view changes
+    // Cycle through tasks to check expiration date
     $interval(function(){
       $scope.filterTask();
-    }, 9000);
+    }, 5000);
 
-  }]);
-  
+  }
+
 })();
