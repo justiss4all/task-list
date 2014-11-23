@@ -2,8 +2,8 @@
 <html data-ng-app="TaskList">
   <head>
     <title>Self-Destructing Task List with Firebase</title>
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/task-list.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="styles/task-list.css">
   </head>
   <body ng-controller="ListController">
       <!-- Add Task -->
@@ -63,10 +63,13 @@
         </div>
       </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
-    <script src="https://cdn.firebase.com/js/client/1.0.21/firebase.js"></script>
-    <script src="https://cdn.firebase.com/libs/angularfire/0.8.2/angularfire.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.3/moment.min.js"></script>
-    <script src="/javascripts/app.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/firebase/firebase.js"></script>
+    <script src="bower_components/angularfire/dist/angularfire.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="/scripts/app.js"></script>
+    <script src="/scripts/services.js"></script>
+    <script src="/scripts/controllers.js"></script>
+    <script src="/scripts/filters.js"></script>
   </body>
 </html>
