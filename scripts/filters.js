@@ -6,7 +6,6 @@
       .filter('taskFilter', taskFilter)
       .filter('countdown', countdown);
 
-
   function taskFilter() {
     return function(tasks, currentState) {
       var taskList = [];
@@ -30,7 +29,7 @@
         });
       }
       return taskList;
-    }; 
+    };
   }
 
   function countdown() {
